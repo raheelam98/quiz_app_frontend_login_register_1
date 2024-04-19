@@ -13,8 +13,8 @@ const page = () => {
   const [error, setError] = useState();
   const { register, handleSubmit } = useForm<FormType>();
 
-  const signupFn = async (data: FormType) => {
-    const response = await fetch(`http://localhost:8000/api/userSignup`,
+  const loginFn = async (data: FormType) => {
+    const response = await fetch(`api/api/Signin`,
       {
         method: "POST",
         headers: {
@@ -27,6 +27,7 @@ const page = () => {
       setError(await response.json())
     }
     else{
+      //setError("");
       console.log(await response.json()) 
     }
     
@@ -39,11 +40,8 @@ const page = () => {
       <div className='w-1/3 p-6 rounded-md  bg-white flex flex-col gap-2 justify-center items-center'>
         <h1 className='md:text-2xl text-xl font-bold text-gray-900 m-2'>Quiz Hub</h1>
         <p className='text-red-500'>{error ? error : ""}</p>
-        <form onSubmit={handleSubmit(signupFn)} className='flex flex-col gap-4 justify-center items-center'>
+        <form onSubmit={handleSubmit(loginFn)} className='flex flex-col gap-4 justify-center items-center'>
         
-        <input className='rounded-md border p-1.5' type="text" placeholder='userName' {...register("user_name", {
-            required: true
-          })} />        
           <input className='rounded-md border p-1.5' type="email" placeholder='userEmail' {...register("user_email", {
             required: true
           })} />
@@ -52,16 +50,16 @@ const page = () => {
             minLength: 6
           })} />
           <Button buttonType='submit'>
-            Sign Up
+            Sign In
           </Button>
         </form>
 
         <h1 className='md:text-xl text-gray-900 m-2'>
-          Already have an account?
+          Don't have an account?
         </h1>
-        <Link href={"/login"}>
+        <Link href={"/register"}>
           <Button buttonType='button'>
-            Sign In
+            Sign Up
           </Button>
         </Link>
       </div>
@@ -70,3 +68,4 @@ const page = () => {
 }
 
 export default page
+
